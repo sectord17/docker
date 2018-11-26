@@ -13,7 +13,7 @@
     cp .env.example .env
     ```
 
-2. Set you server ip address as value of the **IP** variable in `.env` file
+2. Set your ip address as a value of the **IP** variable in `.env` file
 
     ```bash
     IP=192.0.2.1
