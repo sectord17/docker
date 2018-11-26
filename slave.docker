@@ -1,0 +1,25 @@
+FROM node:latest
+
+ARG IP
+ARG GAME_TOKEN
+ARG SLAVE_TOKEN
+ARG MASTER_TOKEN
+
+COPY server-slave /app/server-slave
+COPY server-game /app/server-game
+
+WORKDIR /app/server-game
+RUN cp .env.example .env
+RUN sed -i "s/TOKEN=.*/TOKEN=${GAME_TOKEN}/" .env
+RUN npm install
+
+WORKDIR /app/server-slave
+RUN cp .env.example .env
+RUN sed -i "s/TOKEN=.*/TOKEN=${SLAVE_TOKEN}/" .env
+RUN sed -i "s/GAME_PATH=.*/GAME_PATH=\/app\/server-game\/app.js/" .env
+RUN sed -i "s/GAME_IP=.*/GAME_IP=${IP}/" .env
+RUN sed -i "s/GAME_TOKEN=.*/GAME_TOKEN=${GAME_TOKEN}/" .env
+RUN sed -i "s/MASTER_TOKEN=.*/MASTER_TOKEN=${MASTER_TOKEN}/" .env
+RUN npm install
+
+CMD npm run start

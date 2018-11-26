@@ -1,0 +1,37 @@
+version: '3'
+services:
+  master:
+    build:
+      context: ..
+      dockerfile: docker/master.docker
+      args:
+        SLAVE_TOKEN: "${SLAVE_TOKEN}"
+        MASTER_TOKEN: "${MASTER_TOKEN}"
+    container_name: master
+    restart: always
+    expose:
+      - 3001
+    ports:
+      - 3001:3001
+    links:
+      - slave
+
+  slave:
+    build:
+      context: ..
+      dockerfile: docker/slave.docker
+      args:
+        GAME_TOKEN: "${GAME_TOKEN}"
+        SLAVE_TOKEN: "${SLAVE_TOKEN}"
+        MASTER_TOKEN: "${MASTER_TOKEN}"
+        IP: "${IP}"
+    container_name: slave
+    restart: always
+    expose:
+      - 3002
+      - 3003-3100
+      - 3003-3100/udp
+    ports:
+      - 3002:3002
+      - 3003-3100:3003-3100
+      - 3003-3100:3003-3100/udp

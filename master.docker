@@ -1,0 +1,14 @@
+FROM node:latest
+
+ARG MASTER_TOKEN
+ARG SLAVE_TOKEN
+
+COPY server-master /app
+WORKDIR /app
+
+RUN cp .env.example .env
+RUN sed -i "s/TOKEN=.*/TOKEN=${MASTER_TOKEN}/" .env
+RUN sed -i "s/SLAVE_TOKEN=.*/SLAVE_TOKEN=${SLAVE_TOKEN}/" .env
+RUN npm install
+
+CMD npm run start
