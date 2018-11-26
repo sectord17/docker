@@ -27,11 +27,13 @@
     
 ## Testing
 1. Create example server
-```bash
-curl -X POST -d "name=test123" http://127.0.0.1:3001/games
-```
+
+    ```bash
+    curl -X POST -d "name=test123" http://127.0.0.1:3001/games
+    ```
 
 2. Get list of servers
-```bash
-curl http://127.0.0.1:3001/games
-```
+
+    ```bash
+    curl http://127.0.0.1:3001/games
+    ```
